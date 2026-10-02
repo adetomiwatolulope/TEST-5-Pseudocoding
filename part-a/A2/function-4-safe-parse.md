@@ -1,3 +1,11 @@
+Task 5 — Part A2: Function 4 — ZodType.safeParse (zod 3.25.76)
+
+- package: zod 3.25.76
+- source file: node_modules/zod/v3/types.js
+- function: ZodType.safeParse
+- relevant source range: safeParse L116–131
+- relevant helper ranges: handleResult L26–45; _parseSync promise guard L99–105
+
 FUNCTION safeParse
 
 INPUTS

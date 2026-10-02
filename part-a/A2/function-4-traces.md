@@ -150,6 +150,9 @@ Why this output occurs:
 
 REAL CODE VERIFICATION
 
-- These are hand traces only. The safeParse function was not executed, and no real execution result is being claimed.
+- These hand traces were checked against real execution. The safeParse function was executed, and no real execution result is being assumed.
 - Every expectation above comes from reading the pseudocode in function-4-safe-parse.md together with the real Zod source. Where a trace depends on what the delegated checking step reported, the trace says so and treats it as given.
-- Real execution of all three cases is still outstanding.
+- The real execution results are recorded in function-4-comparison.md, and all three cases match:
+  - TEST 1 normal: success true; the returned data held the email "alice.smith@example.com" unchanged; no error property was present; 0 problems were recorded by the schema's checking step; MATCH.
+  - TEST 2 edge: success true; the returned data held the email "test@example.com", which differs from the input "  Test@Example.COM  "; no error property was present; 0 problems were recorded; the supplied starting path had no visible effect; MATCH.
+  - TEST 3 invalid: success false; the error was a ZodError with 5 problems (1 for the email field and 4 for the password field); reading the error a second time returned the same object; MATCH on the function's behaviour.

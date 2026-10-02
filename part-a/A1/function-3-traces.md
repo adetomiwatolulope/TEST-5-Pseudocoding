@@ -68,5 +68,5 @@ Hand trace:
 
 REAL CODE VERIFICATION
 
-- These are hand traces only. The real function was not executed, and no real execution result is being claimed.
-- Every expectation above is derived by reading the pseudocode, not from running any code.
+- The real function was executed using the exact three traced inputs, and all three real results matched the hand traces above (3/3).
+- The hand-trace expectations above were derived from the pseudocode, and the real execution results are recorded in function-3-comparison.md.

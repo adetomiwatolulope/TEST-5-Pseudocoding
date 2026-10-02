@@ -51,14 +51,14 @@ STEPS
 9. If reading the document fails:
    - Mark the job as FAILED.
    - Create an audit log showing the summarization failed.
-   - Stop and return a storage error.
+   - Stop and throw a storage error.
 
 10. Send the document to the AI provider together with its file type and summarization instructions.
 
 11. If the AI provider fails:
    - Mark the job as FAILED.
    - Create an audit log showing the summarization failed.
-   - Stop and return an AI provider error.
+   - Stop and throw an AI provider error.
 
 12. Record the number of attempts reported by the AI provider.
 
@@ -67,7 +67,7 @@ STEPS
 14. If the AI output is invalid:
    - Mark the job as FAILED.
    - Create an audit log showing the summarization failed.
-   - Stop and return an invalid-output error.
+   - Stop and throw an invalid-output error.
 
 15. Normalize the validated AI output.
 
@@ -76,7 +76,7 @@ STEPS
 17. If the safety check fails:
    - Mark the job as FAILED.
    - Create an audit log showing the summarization failed.
-   - Stop and return the safety error.
+   - Stop and throw the safety error.
 
 18. Create an audit log showing that an AI summarization request was made.
 
@@ -85,7 +85,7 @@ STEPS
 20. If encryption fails:
    - Mark the job as FAILED.
    - Create an audit log showing the summarization failed.
-   - Stop and return an encryption error.
+   - Stop and throw an encryption error.
 
 21. Update the AI suggestion job:
    - Set its status to COMPLETED.

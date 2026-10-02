@@ -110,7 +110,14 @@ about what it does and how it lines up with the specification.
 
 ---
 
-## Nontechnical Listener Evidence
+## Nontechnical Listener Feedback
+
+**Status: PENDING — must be completed with a real non-technical person.**
+
+No real listener feedback exists yet. The fields below are an unfilled template and must not be
+treated as evidence. The recording has not been made, and no non-technical person has been asked
+to explain the feature. Neither of those events should be claimed until they actually happen and
+the real outcome is entered below.
 
 **Instructions to the recorder:** ask a nontechnical listener to explain the feature back in their
 own words without showing them this outline. Record the outcome below. Do not include sensitive
