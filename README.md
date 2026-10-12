@@ -200,3 +200,35 @@ Task 5 is **not complete and not submission-ready**. The main outstanding items 
 blocked A1 real-code comparisons for Functions 1 and 2, the AI-assisted (non-no-AI) A2
 Functions 5 and 6, the B2 no-AI non-compliance (the author must still write the
 implementation independently), and the missing C4 recording and listener evidence.
+
+---
+
+## 8. What I Learned
+
+- Writing pseudocode forced me to name every input, every output and every failure path, and
+  I noticed that the parts I could not state plainly were exactly the parts I did not fully
+  understand.
+- Hand-tracing normal, edge and invalid inputs slowed me down in a useful way: it made
+  boundary cases such as appointments that touch exactly at an endpoint explicit, and it
+  showed me that a description and a result only agree once I have actually checked both.
+- Comparing my hand traces with real execution was the most honest test. Where it worked, my
+  predictions matched; where they did not, I corrected the wording instead of pretending the
+  difference was not there, and where the environment blocked a run I recorded that I could
+  not run it rather than guessing.
+- Reading code from real libraries taught me to read the source rather than the
+  documentation, and to write down where a description is narrower or looser than what the
+  code actually does.
+- Checking an AI-generated implementation against my own specification showed me that an AI
+  can follow the main path and still make choices the specification never settled, so the
+  ambiguities in my own spec turned out to matter as much as the code.
+- Reverse-engineering the AI code back into pseudocode made those differences visible as
+  decisions rather than accidents, and taught me to separate "the AI added something", "the
+  AI omitted something", and "my spec was ambiguous".
+- The planted-bug exercise showed that tests do reveal the gap between expected and actual
+  behaviour, and that passing tests alone prove very little: ten tests stayed green while a
+  one-character defect sat in the code, and only the test that pinned the exact boundary
+  caught it.
+- Overall I trust the pseudocode-and-trace comparison more than the tests on their own,
+  because it is the only way I found to ask whether the behaviour itself is right.
+
+The evidence behind these notes is in `part-a/`, `part-b/` and `part-c/`.
