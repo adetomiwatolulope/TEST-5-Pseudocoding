@@ -75,6 +75,81 @@ None. No explanation of a difference is required because no case mismatched.
 
 All five B1 hand-trace inputs produce the expected B1 results against the current implementation.
 
+## Step-by-step mapping (pseudocode step → implementation)
+
+Every numbered step in `part-b/pseudocode.md` was checked against
+`Medlink-ai/modules/patients/scheduling.rules.ts`. Line numbers are the implementation's.
+
+| Pseudocode step | Implementation | Match |
+|---|---|---|
+| 1 Take proposed start, end, and the list | Function signature and parameters, lines 47–50 (`proposed`, `existingAppointments`) | Yes |
+| 2 Proposed start not valid → `invalid` | Lines 51–54, using `isValidTime` (31–33) | Yes |
+| 3 Proposed end not valid → `invalid` | Lines 56–59, using `isValidTime` | Yes |
+| 4 End not later than start on the same date → `invalid` | Lines 61–64, via `endsAfterStartsOnSameDate` (43–45) and `isSameCalendarDate` (35–41) | Yes |
+| 5 Empty list → `no-conflict` | Lines 66–69 | Yes |
+| 6 Begin the walk on the first entry | Line 72, `for (const appointment of existingAppointments)` | Yes |
+| 7 Past the last entry → go to step 15 | Loop termination; control reaches lines 96–97 | Yes |
+| 8 Take the current entry | The loop variable `appointment` (line 72) | Yes |
+| 9 Ignored status → skip, times never checked | Lines 73–76, using `IGNORED_STATUSES` (25–29); `continue` before any time check | Yes |
+| 10 Active start not valid → `invalid` | Lines 79–85 (combined condition) | Yes |
+| 11 Active end not valid → `invalid` | Lines 79–85 (combined condition) | Yes |
+| 12 Active end not later than start same date → `invalid` | Lines 79–85, via `endsAfterStartsOnSameDate` | Yes |
+| 13 Strict overlap → `conflict` carrying the entry | Lines 87–93 (strict `<` and `>`) | Yes |
+| 14 Move to the next entry, go to step 7 | Loop iteration; `continue` and the `for` advance | Yes |
+| 15 Return `no-conflict` | Lines 96–97 | Yes |
+
+No step in the pseudocode is left unimplemented, and no numbered step was reordered.
+
+## Implementation details beyond, or interpreting, the pseudocode
+
+These are recorded rather than glossed over, as the brief requires.
+
+- **Step 9 (ignored statuses).** The set of three ignored statuses is expressed once as
+  `IGNORED_STATUSES` (lines 25–29). This is an implementation detail of step 9 and matches
+  the spec's ignored list (CANCELLED, REFUNDED, COMPLETED) exactly.
+- **Steps 10–12 collapsed.** The three separate invalid checks are written as one combined
+  `if` (lines 79–85). The behaviour is identical because all three return the same result.
+- **Type declarations.** `AppointmentStatus`, `ProposedAppointment`, `ExistingAppointment`,
+  and `SchedulingResult` (lines 1–23) are type-only declarations; they add no runtime
+  behaviour beyond the pseudocode.
+- **Field name for the carried appointment (interpretation).** The pseudocode says the
+  conflict result "carries that appointment" but never names the field; the code calls it
+  `conflictingAppointment` (lines 23 and 92). This is the same unresolved naming ambiguity
+  recorded in C2.
+- **What counts as a valid time value (interpretation).** The pseudocode defines a valid
+  time value broadly ("can be interpreted as a real calendar date together with a real time
+  of day"). The code accepts only an actual `Date` instance with a usable time
+  (`isValidTime`, lines 31–33), so a numeric timestamp or an ISO string would be rejected as
+  invalid even though it could denote a real moment. This is a narrow but reasonable reading
+  of the ambiguous wording, recorded in C2 and C3.
+- **"Same calendar date" (interpretation).** `isSameCalendarDate` (lines 35–41) compares the
+  machine's **local** year/month/day. The pseudocode never names a calendar or time zone, so
+  results near midnight can depend on where the code runs. Recorded in C2 and C3.
+- **Out-of-contract inputs (divergence from "never raises an error").** The pseudocode states
+  the function "never raises an error". The code will throw if `proposed` is `null`/`undefined`
+  (reading `.startTime`) or if `existingAppointments` is `null` (reading `.length`). This only
+  occurs for inputs outside the stated shape and is the same point recorded in C2 and C3; the
+  pseudocode decision (return a verdict vs. throw) remains open.
+
+## What the author must still do personally (B2 no-AI requirement)
+
+The implementation at `Medlink-ai/modules/patients/scheduling.rules.ts` is currently
+**AI-generated and therefore does not satisfy the B2 no-AI requirement.** The mapping above
+documents the existing code; it does not remedy that non-compliance. The author must:
+
+1. **Write the implementation independently.** Use `part-b/pseudocode.md` as the only
+   source, without AI assistance, producing the same behaviour step for step.
+2. **Re-run the five B1 trace inputs** against the independently written implementation and
+   record the actual results against the expected results, as in the comparison table above.
+3. **Confirm the step mapping still holds** for the independent code, recording any step the
+   new code does not correspond to, or any behaviour it adds beyond the pseudocode.
+
+To test with the five B1 inputs: place the times on a single calendar date, call
+`hasSchedulingConflict(proposed, existing)`, and check the returned `status` (and, for a
+conflict, the carried appointment). Traces 1–5 are the required five; the document also
+contains a Trace 6 (early conflict before later invalid data) that is worth keeping as an
+extra check of the early exit.
+
 ## Files
 
 - Created: `Medlink-ai/modules/patients/scheduling.rules.ts`

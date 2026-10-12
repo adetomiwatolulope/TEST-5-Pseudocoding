@@ -50,6 +50,44 @@ three steps:
 3. **Cap the length.** Truncate to 200 characters so a long name cannot exceed storage
    key limits.
 
+### Intended behaviour — pseudocode
+
+```
+FUNCTION sanitizeOriginalName
+
+INPUTS
+- name: string — an untrusted, client-supplied filename.
+
+OUTPUT
+- A safe filename string, at most 200 characters long.
+
+SIDE EFFECTS
+- None. The function is pure: it reads no external state and writes none.
+
+FAILS WHEN
+- Never. Any string, including an empty string, produces a string.
+
+STEPS
+1. Split the name on the slash and backslash characters and keep the last segment. If the
+   name contains no such separator, keep the whole name.
+2. Replace every character that is not a letter, a digit, a dot, an underscore, a space, or
+   a hyphen with an underscore.
+3. Trim the surrounding whitespace.
+4. Return the result cut to at most 200 characters.
+```
+
+### Actual behaviour with the bug — pseudocode
+
+Identical to the intended pseudocode above except for the constant in the final step:
+
+```
+4. Return the result cut to at most 201 characters.
+```
+
+The only difference is the boundary constant in the final cut: 200 becomes 201. Every other
+step is unchanged, so the two descriptions behave identically for inputs of 200 characters or
+fewer and differ by exactly one character for longer inputs.
+
 ---
 
 ## Bug introduced

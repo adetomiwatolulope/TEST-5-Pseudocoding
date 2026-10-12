@@ -141,3 +141,19 @@ personal information.
 
 - **Follow-up given (if any):**
   _e.g. clarified that endpoint-touching is allowed and that ignored statuses are skipped before validation_
+
+---
+
+## Suggested listener questions (keep the set small)
+
+Ask the listener to answer in their own words, without reading the pseudocode or the code.
+A workable set of four:
+
+1. "In one sentence, what does this feature decide?"
+2. "If a proposed appointment touches an existing one exactly at the end or the start, is
+   that a clash? Why or why not?"
+3. "What should happen if the times on an existing appointment are impossible or missing?"
+4. "Should a cancelled or completed appointment be able to block a new booking?"
+
+Record the listener's actual answers and any misunderstanding in the section above. Do not
+pre-fill results, and do not record anything that was not actually said.

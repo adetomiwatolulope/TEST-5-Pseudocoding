@@ -164,29 +164,39 @@ The submission is expected to contain:
 
 This is an honest snapshot of the existing files. It is not a claim of completion.
 
-- **A1:** pseudocode and hand traces exist for three functions, but the **real-code
-  comparisons are incomplete** (the attempted runs were blocked by environment issues and
-  one function was hand-traced only).
-- **A2:** currently only **one** open-source function is completed; **two more are still
-  needed** to satisfy the "three functions with increasing difficulty" requirement. The
-  one completed function has comparison notes, and those notes record a first-pass
-  inaccuracy in its hand traces that has not yet been corrected.
-- **A3:** **complete** — intended behaviour, the planted bug, actual behaviour, the test
-  that caught it, and the verified revert are all documented.
+- **A1:** pseudocode and hand traces exist for three functions. A real-code comparison
+  exists for **Function 3** (the error handler). The real-code runs attempted for
+  **Function 1** and **Function 2** were **blocked by the environment** (Function 1 by a
+  missing `medlink` database, Function 2 by a database that requires a SCRAM password that
+  was not available), so those two remain hand-traced only.
+- **A2:** three open-source functions are documented in increasing difficulty —
+  **Function 4** (`safeParse`, Zod 3.25.76), **Function 5** (`prepareValue`, pg 8.23.0),
+  and **Function 6** (`parse`, path-to-regexp 6.3.0) — each with pseudocode, hand traces,
+  and a comparison against the installed source. **Functions 5 and 6 are AI-assisted** and
+  are explicitly labelled as **not** a compliant no-AI first pass; only Function 4's first
+  pass is claimed as a genuine first pass. The first-pass inaccuracy previously recorded in
+  Function 4's hand traces has been corrected and the comparison notes updated to match.
+- **A3:** intended behaviour, a pseudocode description of the intended **and** the buggy
+  behaviour, the planted bug, its precise location, the test that caught it, the actual
+  results before and with the bug, and the verified revert are all documented.
 - **B1:** **complete** — the `hasSchedulingConflict` pseudocode and hand traces exist.
-- **B2:** the implementation and the trace-vs-test evidence exist, **but the
-  implementation was AI-generated and therefore does NOT satisfy the assessment's
-  requirement that B2 be implemented without AI.** This part is non-compliant on that
-  point and must not be described as meeting the no-AI requirement.
+- **B2:** the implementation and the trace-vs-test evidence exist, and
+  `part-b/trace-vs-test.md` now contains a verified **step-by-step mapping** of the B1
+  pseudocode to the current implementation, plus the interpretations and out-of-contract
+  behaviour it adds. **However, the implementation was AI-generated and therefore does NOT
+  satisfy the assessment's requirement that B2 be implemented without AI.** This part is
+  non-compliant on that point and must not be described as meeting the no-AI requirement.
+  The author must still write the implementation independently and re-run the traces.
 - **C1:** exists at
   `C:\Users\user\Desktop\Medlink-ai\modules\patients\scheduling.rules.ai.ts`.
 - **C2:** the reverse pseudocode and the difference table exist at
   `part-c/C2/reverse-pseudocode.md` and `part-c/C2/difference-table.md`.
 - **C3:** exists and compares the own implementation and the AI implementation across ten
-  inputs.
-- **C4:** the recording **notes** exist, but the **actual recording and the
-  nontechnical listener evidence are still missing**.
+  inputs; all ten agree.
+- **C4:** the recording notes and a suggested listener question set exist, but the
+  **actual recording and the nontechnical listener evidence are still missing**.
 
 Task 5 is **not complete and not submission-ready**. The main outstanding items are the
-two missing A2 functions, the incomplete A1 real-code comparisons, the B2 no-AI
-non-compliance, and the missing C4 recording and listener evidence.
+blocked A1 real-code comparisons for Functions 1 and 2, the AI-assisted (non-no-AI) A2
+Functions 5 and 6, the B2 no-AI non-compliance (the author must still write the
+implementation independently), and the missing C4 recording and listener evidence.

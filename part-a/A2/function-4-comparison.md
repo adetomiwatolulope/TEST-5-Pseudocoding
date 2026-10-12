@@ -169,9 +169,9 @@ DISCREPANCIES AND CORRECTIONS NEEDED
 
 None are needed in function-4-safe-parse.md. Its 18 steps all match real behaviour, and nothing in it should be changed as a result of this comparison.
 
-Three wording corrections are needed in function-4-traces.md, all inside TEST 3, and all caused by the same wrong assumption. They are listed here and have not been applied:
-1. In the input section, the line describing the omitted fields as "the required remaining fields of this schema" should state that every remaining field of the registration schema is optional and is simply absent. The real run recorded no problem for them.
-2. In the trace at step 11, the sentence saying the delegated step "also finds the fields that were left out" should be removed. It finds nothing wrong with the omitted fields.
-3. In the trace at step 17, the phrase "together with anything recorded for the fields that were left out" should be removed. The real error carries 5 problems, all belonging to the email field and the password field.
+Three wording corrections were needed in function-4-traces.md, all inside TEST 3, and all caused by the same wrong assumption. They have since been applied to the trace and verified below; the notes are kept here so the history is clear:
+1. The input section previously described the omitted fields as "the required remaining fields of this schema". It now states that every remaining field of the registration schema is optional and is simply absent. The real run recorded no problem for them. (Applied at function-4-traces.md line 113.)
+2. The trace at step 11 previously said the delegated step "also finds the fields that were left out". That sentence has been removed; the step now states it recorded no problem at all for the fields that were left out, because every one of them is optional. (Applied at function-4-traces.md line 130.)
+3. The trace at step 17 previously said the error carried "together with anything recorded for the fields that were left out". That phrase has been removed; the step now states every recorded problem comes from the email field or the password field, and none from a field that was left out. (Applied at function-4-traces.md line 136.)
 
 Optional, at the author's discretion: Test 3's step 15 could now state the confirmed problem count of 5, and the closing "Why this output occurs" section could record the confirmed message text. These would be improvements in precision, not corrections, since the trace as written is not wrong on those points.
